@@ -9,3 +9,19 @@ export const createUserSchema = z.object({
 export const returnUserSchema = createUserSchema.extend({
     id: z.number()
 }).omit({password:true})
+
+export const returnAllUsersSchema = returnUserSchema.array()
+
+export type CreateUser = z.infer<typeof createUserSchema>
+export type ReturnUser = z.infer<typeof returnUserSchema>
+export type ReturnUsers = z.infer<typeof returnAllUsersSchema>
+// export interface iCreateUser {
+//     name:string,
+//     email:string,
+//     password: string
+// }
+// export type tCreateUser ={
+//     name: string,
+//     email: string,
+//     password: string
+// }

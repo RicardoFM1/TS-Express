@@ -44,4 +44,6 @@ AppDataSource.initialize().then(()=>{
     console.log(error)
 })
 
-// typeorm doc e zod doc
+// fazer um login
+// fazer um update
+// fazer um delete
