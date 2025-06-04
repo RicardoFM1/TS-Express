@@ -1,11 +1,11 @@
 
 import app from "./app";
-import {AppDataSource} from "./data-source";
+import { AppDataSource } from "./data-source";
 //npm run tsc -- --init
 // let names:string = "4"
 // names = String(10)
 
- 
+
 // interface Produto {
 //     id:number,
 //     name:string,
@@ -43,7 +43,3 @@ AppDataSource.initialize().then(()=>{
 }).catch((error)=>{
     console.log(error)
 })
-
-// fazer um login
-// fazer um update
-// fazer um delete

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { getRounds,  } from "bcryptjs";
 
 @Entity("usuarios")
 export class Usuarios {
@@ -13,5 +14,11 @@ export class Usuarios {
 
     @Column()
     password: string
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword(){
+
+    }
 
 }
