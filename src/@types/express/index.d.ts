@@ -7,7 +7,6 @@ declare global {
         email: string;
         
       };
-      
     }
   }
 }
