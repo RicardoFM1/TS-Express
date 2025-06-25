@@ -1,13 +1,11 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Usuarios } from "./usuarios.entitie";
+import { Posts } from "./posts.entitie";
 
-@Entity("posts")
-export class Posts {
+@Entity("comments")
+export class Comments {
     @PrimaryGeneratedColumn("increment")
     id:number
-
-    @Column()
-    title: string
 
     @Column()
     content: string
@@ -15,5 +13,8 @@ export class Posts {
     @ManyToOne(()=>Usuarios)
     usuario:Usuarios
 
+    
+    @ManyToOne(()=>Posts)
+    post:Posts
 
 }

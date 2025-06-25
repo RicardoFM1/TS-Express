@@ -12,8 +12,7 @@ export const getAllPostsService=async(offset:any|string,limit:string|any):Promis
             relations:{
                 usuario:true
             },
-            skip: offset ?? 0,
-            take: limit ?? 10
+          
         }
     )
 
