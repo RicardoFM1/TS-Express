@@ -2,8 +2,8 @@ import { DeepPartial } from "typeorm"
 import {z} from "zod"
 
 export const createUserSchema = z.object({
-    name: z.string().min(2,"nome é obrigatório"),
-    email: z.string().email(),
+    name: z.string().min(2,"Nome é obrigatório"),
+    email: z.string().email("Email Inválido"),
     password: z.string().min(8,"Necessário pelo menos 8 caractéres")
 })
 
