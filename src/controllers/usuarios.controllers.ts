@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { createUserService } from "../services/createUser.service"
 import { getAllUsersService } from "../services/getAllUsers.service"
 import { ReturnUser } from "../schemas/usuarios.schemas"
-import jwt from "jsonwebtoken"
+
 
 export const createUserController = async(req:Request,res:Response):Promise<any> =>{
     const userData = req.body

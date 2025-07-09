@@ -16,8 +16,9 @@ export const validateTokenMiddleware = async(req:Request,res:Response,next:NextF
         }
         if(decoded){
             req.user = {
-            id :  decoded.id,
-            email:decoded.email
+            name: decoded.name,
+            id: decoded.id,
+            email: decoded.email
         }
        
         }

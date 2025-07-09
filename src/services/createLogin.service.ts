@@ -24,6 +24,7 @@ export const createLoginService=async(loginData:iCreateLogin):Promise<string>=>{
    }
    
         const token = jwt.sign({
+            name: findUser.name,
             id:findUser.id,
             email:findUser.email
         },
