@@ -3,15 +3,15 @@ import { Comments } from "../entities/comments.entitie"
 import { AppDataSource } from "../data-source"
 import { returnAllCommentSchema } from "../schemas/comments.schemas"
 
-export const getCommentsByIdPostService=async(postId:number)=>{
+export const getCommentsByIdPostService=async(userId:number)=>{
 
     const commentRepository:Repository<Comments> = AppDataSource.getRepository(Comments)
 
     const findComments:Comments[]|[] =await commentRepository.find(
     {
         where:{
-            post:{
-                id:postId
+            usuario:{
+                id:userId
             }
         },
         relations:{
@@ -20,6 +20,7 @@ export const getCommentsByIdPostService=async(postId:number)=>{
         }
     }
     )
+    console.log(findComments,"aki")
     const posts = returnAllCommentSchema.parse(findComments)
     return posts
 

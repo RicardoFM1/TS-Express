@@ -13,7 +13,7 @@ export const createCommentController=async(req:Request,res:Response):Promise<Res
 }
 export const getCommentsByPostIdController=async(req:Request,res:Response):Promise<Response>=>{
 
-    const postId:number = parseInt(req.params.id)
-    const comments:iReturnAllComment = await getCommentsByIdPostService(postId)
+    const userId:number = parseInt(req.params.userid)
+    const comments:iReturnAllComment = await getCommentsByIdPostService(userId)
     return res.status(200).json(comments)
 }
