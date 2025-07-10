@@ -15,8 +15,11 @@ export const createPostController=async(req:Request,res:Response):Promise<Respon
 
 }
 export const getAllPostsController=async(req:Request,res:Response):Promise<Response>=>{
-    const offset = req.query.offset
-    const limit = req.query.limit
+const limitParam = req.query.limit;
+const offsetParam = req.query.offset;
+
+const limit = typeof limitParam === "string" ? parseInt(limitParam) : undefined;
+const offset = typeof offsetParam === "string" ? parseInt(offsetParam) : undefined;
     console.log(req.baseUrl,req.hostname)
     const posts:iPosts = await getAllPostsService(offset,limit)
     return res.status(200).json(posts)
