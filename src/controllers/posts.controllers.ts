@@ -3,6 +3,7 @@ import { CreatePost, iPosts, Post } from "../schemas/posts.schemas";
 import { createPostService } from "../services/createPost.service";
 import { getAllPostsService } from "../services/getAllPosts.service";
 import { getPostsByUserIdService } from "../services/getPostsByUserId.service";
+import { deletePostsbyIdService } from "../services/deletePostsById.service";
 
 export const createPostController=async(req:Request,res:Response):Promise<Response>=>{
 
@@ -27,5 +28,10 @@ const offset = typeof offsetParam === "string" ? parseInt(offsetParam) : undefin
 export const getPostsByUserIdController=async(req:Request,res:Response):Promise<Response>=>{
     const userId:number = parseInt(req.params.userid)
         const posts:iPosts = await getPostsByUserIdService(userId)
+    return res.status(200).json(posts)
+}
+export const DeletePostByIdController=async(req:Request, res:Response):Promise<Response>=>{
+    const postId:number = parseInt(req.params.postId)
+    const posts:iPosts = await deletePostsbyIdService(postId)
     return res.status(200).json(posts)
 }
