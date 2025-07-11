@@ -1,23 +1,33 @@
 import { Repository } from "typeorm"
 import { AppDataSource } from "../data-source"
-import { returnAllCommentSchema } from "../schemas/comments.schemas"
 import { Posts } from "../entities/posts.entitie"
-import { Post } from "../schemas/posts.schemas"
 
-export const deletePostsbyIdService=async(postId:number)=>{
+
+
+export const deletePostsbyIdService=async(postId:number, userId:number)=>{
 
     const postRepository:Repository<Posts> = AppDataSource.getRepository(Posts)
-
-    const findPosts:Post[]|[] = await postRepository.find(
-    {
-        where:{
-        id: postId
-        }   
-        
-        
+    console.log(postRepository)
+    const findPosts = await postRepository.findOne({
+     where: {
+        id: postId,
+        usuario: {
+            id: userId
+        }
+     },
+    
+     relations: {
+        usuario: true
+     }
+    })
+    if(!findPosts){
+        throw new Error("Post não encontrado")
+    } 
+    if(findPosts.usuario && findPosts.usuario.id !== userId){
+        return { message: "Usuário não autorizado a deletar este post"}
     }
-    )
-    const posts = returnAllCommentSchema.parse(findPosts)
-    return posts
-
+    await postRepository.delete(postId)
+    console.log("postId:", postId, "userId:", userId);
+    return { message: "Post deletado com sucesso" }
+    
 }

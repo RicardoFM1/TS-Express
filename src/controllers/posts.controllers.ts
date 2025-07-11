@@ -32,7 +32,21 @@ export const getPostsByUserIdController=async(req:Request,res:Response):Promise<
     return res.status(200).json(posts)
 }
 export const DeletePostByIdController=async(req:Request, res:Response):Promise<Response>=>{
-    const postId:number = parseInt(req.params.postId)
-    const posts: Post[]|Post = await deletePostsbyIdService(postId)
-    return res.status(200).json(post)
+    const postId:number = Number(req.params.id)
+    const userId:number = req.user.id
+     if (!postId || isNaN(postId)) {
+        return res.status(400).json({ message: "Parâmetro postId inválido" });
+    }
+    try {
+        const post = await deletePostsbyIdService(postId, userId);
+        return res.status(200).json(post);
+    } catch (error: any) {
+        if (error.message === "Post não encontrado") {
+            return res.status(404).json({ message: error.message });
+        }
+        if (error.message === "Usuário não autorizado a deletar este post") {
+            return res.status(403).json({ message: error.message });
+        }
+        return res.status(500).json({ message: "Erro interno do servidor" });
+    }
 }
