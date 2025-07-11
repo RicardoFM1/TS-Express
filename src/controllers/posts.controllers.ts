@@ -4,6 +4,7 @@ import { createPostService } from "../services/createPost.service";
 import { getAllPostsService } from "../services/getAllPosts.service";
 import { getPostsByUserIdService } from "../services/getPostsByUserId.service";
 import { deletePostsbyIdService } from "../services/deletePostsById.service";
+import { Posts } from "../entities/posts.entitie";
 
 export const createPostController=async(req:Request,res:Response):Promise<Response>=>{
 
@@ -32,6 +33,6 @@ export const getPostsByUserIdController=async(req:Request,res:Response):Promise<
 }
 export const DeletePostByIdController=async(req:Request, res:Response):Promise<Response>=>{
     const postId:number = parseInt(req.params.postId)
-    const posts:iPosts = await deletePostsbyIdService(postId)
-    return res.status(200).json(posts)
+    const posts: Post[]|Post = await deletePostsbyIdService(postId)
+    return res.status(200).json(post)
 }
