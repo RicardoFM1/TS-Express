@@ -7,16 +7,14 @@ export const getAllPostsService=async(offset:number|undefined,limit:number|undef
 
     const postRepository:Repository<Posts> = AppDataSource.getRepository(Posts)
 
-const findOptions: any = {
-  relations: { usuario: true }
-};
 
-if (limit !== undefined && offset !== undefined) {
-  findOptions.take = limit;
-  findOptions.skip = offset;
-}
-
-const findPosts = await postRepository.find(findOptions);
+const findPosts:Posts[]|[] = await postRepository.find({
+  take:limit??10,
+  skip:offset??0,
+  relations:{
+    usuario:true
+  }
+});
     const posts = returnAllPostsSchema.parse(findPosts)
 
     return posts

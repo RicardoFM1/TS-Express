@@ -28,25 +28,23 @@ const offset = typeof offsetParam === "string" ? parseInt(offsetParam) : undefin
 }
 export const getPostsByUserIdController=async(req:Request,res:Response):Promise<Response>=>{
     const userId:number = parseInt(req.params.userid)
-        const posts:iPosts = await getPostsByUserIdService(userId)
+    const limitParam = req.query.limit;
+const offsetParam = req.query.offset;
+
+const limit = typeof limitParam === "string" ? parseInt(limitParam) : undefined;
+const offset = typeof offsetParam === "string" ? parseInt(offsetParam) : undefined;
+console.log(limit, offset, "Limit e offset")
+        const posts:iPosts = await getPostsByUserIdService(userId, offset, limit )
     return res.status(200).json(posts)
 }
 export const DeletePostByIdController=async(req:Request, res:Response):Promise<Response>=>{
     const postId:number = Number(req.params.id)
     const userId:number = req.user.id
-     if (!postId || isNaN(postId)) {
-        return res.status(400).json({ message: "Parâmetro postId inválido" });
-    }
-    try {
-        const post = await deletePostsbyIdService(postId, userId);
-        return res.status(200).json(post);
-    } catch (error: any) {
-        if (error.message === "Post não encontrado") {
-            return res.status(404).json({ message: error.message });
-        }
-        if (error.message === "Usuário não autorizado a deletar este post") {
-            return res.status(403).json({ message: error.message });
-        }
-        return res.status(500).json({ message: "Erro interno do servidor" });
-    }
+    //  if (!postId || isNaN(postId)) {
+    //     return res.status(400).json({ message: "Parâmetro postId inválido" });
+    // }
+ 
+    await deletePostsbyIdService(postId, userId);
+    return res.status(204).json({ message: "Post deletado com sucesso" });
+    
 }
